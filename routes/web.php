@@ -1,8 +1,10 @@
 <?php
-
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +25,18 @@ Route::post('/update/{company}', [CompanyController::class, 'storeUpdate']);
 Route::get('/import', [CompanyController::class, 'importCompany']);
 Route::post('/preview', [CompanyController::class, 'processImport']);
 Route::post('/', [CompanyController::class, 'importAdd']);
+Route::post('/company/{company}/comment', [CommentController::class,'create']);
+
+Route::get('/add-category', [CategoryController::class, 'addCategory']);
+Route::post('/create-category', [CategoryController::class, 'createCategory']);
+Route::get('/show-categories', [CategoryController::class, 'showCompanies']);
+
+Auth::routes();
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/add-product', [ProductController::class, 'addProduct']);
+Route::post('/create-product', [ProductController::class,'createProduct']);
+Route::get('/show-products', [ProductController::class, 'showProducts']);
+Route::post('/add-orders', [OrderController::class, 'addOrders']);

@@ -21,6 +21,9 @@
             <input type="text" class="form-control" name="director" placeholder="CEO" value="{{$company->director}}">
         </div>
         <div class="form-group">
+            <input type="text" class="form-control" name="companyCategory" placeholder="Category" value="{{$company->companyCategory}}">
+        </div>
+        <div class="form-group">
             <textarea name="description" id="" cols="30" row="10" class="form-control" placeholder="Activity">{{$company->description}}</textarea>
         </div>
         <div class="form-group">

@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+    <div class="container">
     <h2>Add new Company</h2>
     @include('_partials/errors')
 
@@ -21,6 +22,9 @@
             <input type="text" class="form-control" name="director" placeholder="CEO">
         </div>
         <div class="form-group">
+            <input type="text" class="form-control" name="companyCategory" placeholder="Category">
+        </div>
+        <div class="form-group">
             <textarea name="description" id="" cols="30" row="10" class="form-control" placeholder="Activity"></textarea>
         </div>
         <div class="form-group">
@@ -29,4 +33,5 @@
         </div>
         <button type="submit" class="btn btn-primary" >Save</button>
     </form>
+    </div>
 @endsection

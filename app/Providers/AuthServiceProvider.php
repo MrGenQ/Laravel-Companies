@@ -25,6 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('edit-company', function($user, $compnay){
+            return $user ->id == $compnay->user_id;
+        });
+        Gate::define('delete-company', function($user, $compnay){
+            return $user ->id == $compnay->user_id;
+        });
         //
     }
 }

@@ -14,7 +14,7 @@ class ProductController extends Controller
         $this->middleware('auth', ['except' => ['showCompanies']]);
     }
     public function addProduct(){
-        $companies = Company::pluck('company')->toArray();
+        $companies = Company::all();
         return view('pages.add-product', compact('companies'));
     }
     public function createProduct(Request $request, Company $company) {
@@ -22,17 +22,17 @@ class ProductController extends Controller
             'product' => 'required',
             'barcode' => 'required',
             'price' => 'required',
-            'company' => 'required'
+            'company_id' => 'required'
         ]);
         Product::create([
             'product' => $request->product,
             'barcode' => $request->barcode,
             'price' => $request->price,
-            'company' => $request->company
+            'company_id' => $request->company_id
 
         ]);
 
-        return redirect('/');
+        return redirect('/show-products');
     }
     public function showProducts(){
         $products = Product::all();

@@ -45,4 +45,7 @@ class User extends Authenticatable
     public function companies(){
         return $this->hasMany(Company::class);
     }
+    public function orders(){
+        return $this->belongsTo(Company::class);
+    }
 }

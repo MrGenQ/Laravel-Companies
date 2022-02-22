@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Models\Category;
 use Carbon\Carbon;
 
 class CompanyController extends Controller
@@ -40,7 +41,8 @@ class CompanyController extends Controller
         return view('pages.home', compact('filterNames'))->with('filtered',$companies);
     }
     public function addCompany(){
-        return view('pages.add-company');
+        $categories = Category::all();
+        return view('pages.add-company', compact('categories'));
     }
     public function storeCompany(Request $request){
 
@@ -50,7 +52,7 @@ class CompanyController extends Controller
             'vat'=> 'required',
             'address'=> 'required',
             'director'=> 'required',
-            'companyCategory'=> 'required',
+            'category'=> 'required',
             'logo' => 'mimes:jpeg,jpg,png,gif'
 
         ]);
@@ -64,7 +66,7 @@ class CompanyController extends Controller
             'vat' =>request('vat'),
             'address' =>request('address'),
             'director' =>request('director'),
-            'companyCategory' =>request('companyCategory'),
+            'category_id' =>request('category'),
             'description' =>request('description'),
             'logo' => $fileName,
             'user_id'=>Auth::id(),
@@ -85,7 +87,8 @@ class CompanyController extends Controller
         if(Gate::denies('edit-company', $company)){
             return view('pages.no-permission');
         }
-        return view('pages.edit-company', compact('company'));
+        $categories = Category::all();
+        return view('pages.edit-company', compact('company', 'categories'));
     }
     public function storeUpdate(Company $company, Request $request){
         if($company->logo){
@@ -96,7 +99,7 @@ class CompanyController extends Controller
             $fileName = str_replace('public/','',$path);
             Company::where('id',$company->id)->update(['logo'=>$fileName]);
         }
-        Company::where('id', $company->id)->update($request->only(['company', 'code', 'vat', 'address', 'director', 'companyCategory', 'description']));
+        Company::where('id', $company->id)->update($request->only(['company', 'code', 'vat', 'address', 'director', 'category_id', 'description']));
         return redirect('/company/'.$company->id);
     }
     public function importCompany(){
@@ -130,16 +133,18 @@ class CompanyController extends Controller
                 'vat' =>$company[2],
                 'address' =>$company[3],
                 'director' =>$company[4],
-                'companyCategory' =>$company[5],
+                'category_id' =>$company[5],
                 'description' =>$company[6],
                 'logo' =>$company[7],
-                'user_id'=>Auth::id()
+                'user_id'=>Auth::id(),
 
             ]);
 
         }
         return redirect('/');
     }
-
+    public function showDashboard(Company $company){
+        return view('pages.dashboard', compact('company'));
+    }
 }
 // compact siuntimui

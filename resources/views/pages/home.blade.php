@@ -40,7 +40,7 @@ use App\Models\Company;
         </tr>
             @foreach($filtered as $company)
                 <tr>
-                    <th><div style="text-transform: uppercase">{{$company->companyCategory}}</div></th>
+                    <th><div style="text-transform: uppercase">{{$company->category->category}}</div></th>
                     <th><div style="text-transform: capitalize">{{$company->company}}</div></th>
                     <th>{{$company->code}}</th>
                     <th>{{$company->vat}}</th>

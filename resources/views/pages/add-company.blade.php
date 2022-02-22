@@ -22,7 +22,12 @@
             <input type="text" class="form-control" name="director" placeholder="CEO">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="companyCategory" placeholder="Category">
+            <select name="category" class="form-select">
+                <option value="" selected>--Select category--</option>
+                @foreach ($categories as $category)
+                    <option value="{{$category->id}}">{{$category->category}}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <textarea name="description" id="" cols="30" row="10" class="form-control" placeholder="Activity"></textarea>

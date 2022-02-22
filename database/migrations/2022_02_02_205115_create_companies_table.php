@@ -20,8 +20,8 @@ class CreateCompaniesTable extends Migration
             $table->string('vat');
             $table->text('address');
             $table->string('director');
-            $table->string('companyCategory');
-            $table->longText('description');
+            $table->foreignId('category_id');
+            $table->longText('description')->nullable();
             $table->string('logo')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();

@@ -10,7 +10,7 @@ use App\Models\Comment;
 class Company extends Model
 {
     use HasFactory;
-    protected $fillable = ['company', 'code', 'vat', 'address', 'director', 'companyCategory', 'description', 'logo', 'user_id'];
+    protected $fillable = ['company', 'code', 'vat', 'address', 'director', 'category_id', 'description', 'logo', 'user_id'];
     public function user(){
         return $this->belongsTo(User::class);
     }

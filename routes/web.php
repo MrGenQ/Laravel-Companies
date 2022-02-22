@@ -39,4 +39,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/add-product', [ProductController::class, 'addProduct']);
 Route::post('/create-product', [ProductController::class,'createProduct']);
 Route::get('/show-products', [ProductController::class, 'showProducts']);
-Route::post('/add-orders', [OrderController::class, 'addOrders']);
+Route::get('/add-orders/order/{product}', [OrderController::class, 'addOrders']);
+Route::get('/show-orders', [OrderController::class, 'showOrders']);
+
+Route::get('/dashboard', [CompanyController::class, 'showDashboard']);
+
+Route::get('/delete/order/{order}', [OrderController::class, 'deleteOrder']);

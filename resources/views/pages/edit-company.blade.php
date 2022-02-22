@@ -21,7 +21,14 @@
             <input type="text" class="form-control" name="director" placeholder="CEO" value="{{$company->director}}">
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="companyCategory" placeholder="Category" value="{{$company->companyCategory}}">
+            <select name="category_id" class="form-select">
+                <option value="{{$company->category->id}}" selected>{{$company->category->category}}</option>
+                @foreach ($categories as $category)
+                    @if ($category->id != $company->category->id)
+                        <option value="{{$category->id}}">{{$category->category}}</option>
+                    @endif
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <textarea name="description" id="" cols="30" row="10" class="form-control" placeholder="Activity">{{$company->description}}</textarea>

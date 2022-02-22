@@ -10,7 +10,7 @@
                     <p class="card-text">PVM Code: {{$company->vat}}</p>
                     <p class="card-text">Director: {{$company->director}}</p>
                     <p class="card-text">Address: {{$company->address}}</p>
-                    <p class="card-text">Category: {{$company->companyCategory}}</p>
+                    <p class="card-text">Category: {{$company->category->category}}</p>
                     <p class="card-text">Description: {{$company->description}}</p>
                 </div>
             </div>

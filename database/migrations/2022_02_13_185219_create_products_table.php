@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('product');
             $table->bigInteger('barcode');
-            $table->integer('price');
-            $table->string('company');
+            $table->float('price');
+            $table->foreignId('company_id');
             $table->timestamps();
         });
     }

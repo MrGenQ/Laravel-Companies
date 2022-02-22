@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
         $companies = [];
         if(request('category')) {
-            $companies = Company::where('companyCategory', request('category'))->get();
+            $companies = Company::where('category_id', request('category'))->get();
         }
 
         return view('pages.show-categories', compact('categories', 'companies'));

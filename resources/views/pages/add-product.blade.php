@@ -1,5 +1,6 @@
 @extends('main')
 @section('content')
+    @include('_partials.dashboard-partial')
     <div class="container">
         <h2>Add new Product</h2>
         @include('_partials/errors')
@@ -17,12 +18,14 @@
             </div>
             <div class="form-group" style="width: 20em;">
                 <label>Choose Company</label>
-                <select type="text" class="form-control" name="company">
-                    <option value="" selected disabled>--Company--</option>
-                    @foreach($companies as $company)
-                        <option value="{{$company}}">{{$company}}</option>
-                    @endforeach
-                </select>
+                <div class="form-group">
+                    <select name="company_id" class="form-select">
+                        <option value="" selected>--Select company--</option>
+                        @foreach ($companies as $company)
+                            <option value="{{$company->id}}">{{$company->company}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary" >Save</button>
         </form>

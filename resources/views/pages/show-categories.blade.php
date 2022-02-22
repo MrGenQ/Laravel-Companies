@@ -1,13 +1,14 @@
 @extends('main')
 @section('content')
-    <div class='px-3 py-3'>
+    @include('_partials.dashboard-partial')
+    <div class='container px-3 py-3'>
         <h2>Companies by Category</h2>
         <form class="d-flex">
             <div class="col-5 me-lg-4">
                 <select name="category" class="form-select form-select-lg">
                     <option value="" selected disabled>--Choose Category--</option>
                     @foreach ($categories as $category)
-                        <option value="{{$category->category}}">{{$category->category}}</option>
+                        <option value="{{$category->id}}">{{$category->category}}</option>
                     @endforeach
                 </select>
             </div>
@@ -26,7 +27,7 @@
                 </tr>
                 @foreach ($companies as $company)
                     <tr>
-                        <td><div style="text-transform: uppercase">{{$company->companyCategory}}</div></td>
+                        <td><div style="text-transform: uppercase">{{$company->category->category}}</div></td>
                         <td><div style="text-transform: capitalize">{{$company->company}}</div></td>
                         <td>{{$company->code}}</td>
                         <td>{{$company->director}}</td>

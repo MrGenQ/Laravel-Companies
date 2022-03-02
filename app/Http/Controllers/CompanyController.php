@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Category;
 use Carbon\Carbon;
+use App\Http\Resources\CompaniesResource;
 
 class CompanyController extends Controller
 {
     //Authentification
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['index','showCompany']]);
+        $this->middleware('auth',['except'=>['index','showCompany', 'companies', 'company']]);
     }
     public function index(Request $request){
         //dd($companies);
@@ -31,12 +32,12 @@ class CompanyController extends Controller
                 return $query->where('company', 'like', '%'.$companies.'%');
             })->when($filterDate, function($query, $date){
                 return $query->orderBy('created_at', $date);
-            })->paginate(4);
+            })->simplePaginate(4);
             $companies->appends(['companyCode' =>$filter]);
         }
 
         else{
-            $companies = Company::whereDate('created_at', Carbon::today()->toDateString())->paginate(4);
+            $companies = Company::whereDate('created_at', Carbon::today()->toDateString())->simplePaginate(4);
         }
         return view('pages.home', compact('filterNames'))->with('filtered',$companies);
     }
@@ -145,6 +146,12 @@ class CompanyController extends Controller
     }
     public function showDashboard(Company $company){
         return view('pages.dashboard', compact('company'));
+    }
+    public function companies(){
+        return CompaniesResource::collection(Company::paginate(5));
+    }
+    public function company(Company $company){
+        return new CompaniesResource($company);
     }
 }
 // compact siuntimui

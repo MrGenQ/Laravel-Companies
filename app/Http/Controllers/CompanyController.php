@@ -147,11 +147,5 @@ class CompanyController extends Controller
     public function showDashboard(Company $company){
         return view('pages.dashboard', compact('company'));
     }
-    public function companies(){
-        return CompaniesResource::collection(Company::paginate(5));
-    }
-    public function company(Company $company){
-        return new CompaniesResource($company);
-    }
 }
-// compact siuntimui
+

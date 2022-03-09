@@ -18,7 +18,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8'
         ]);
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json(['error' => $validator->errors()]);
         }
         $user = User::create([
             'name' => $request->name,
@@ -27,7 +27,8 @@ class AuthController extends Controller
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()
-            ->json(['data'=>$user, 'access_token' => $token]);
+            ->json(['data'=>$user, 'access_token' => $token,
+                'error' => 'Signup complete']);
     }
     public function login(Request $request){
         if(!Auth::attempt($request->only('email', 'password'))){
@@ -42,6 +43,7 @@ class AuthController extends Controller
                 'name' => $user->name,
                 'id' => $user->id,
                 'token'=>$token,
+                'email' => $user->email,
             ]);
     }
     public function logout(Request $request){

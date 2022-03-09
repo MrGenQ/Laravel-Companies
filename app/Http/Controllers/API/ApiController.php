@@ -27,14 +27,14 @@ class ApiController extends Controller
     public function addCompany(Request $request){
         $validator = Validator::make($request->all(),[
             'company'=> 'required|unique:companies|max:255',
-            'code'=> 'required',
-            'vat'=> 'required',
+            'code'=> 'unique:companies|required',
+            'vat'=> 'unique:companies|required',
             'address'=> 'required',
             'director'=> 'required',
             'category_id'=> 'required',
         ]);
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json(['error' => $validator->errors()]);
         }
         Company::create([
             'company' =>request('company'),
@@ -48,7 +48,7 @@ class ApiController extends Controller
             'user_id'=>request('user_id'),
         ]);
         return response()
-            ->json(['message'=> 'Company created succesfully']);
+            ->json(['error'=> 'Company created successfully']);
     }
 
     public function deleteCompany($id)
